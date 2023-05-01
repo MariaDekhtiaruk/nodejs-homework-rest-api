@@ -3,6 +3,8 @@ const Joi = require('joi');
 const contacts = require('../../models/contacts');
 const RequestError = require('../../helpers');
 
+const contactController = require('../../controllers/books');
+
 // встановлюємо бібліотеку joi, щоб перевірити тіло запиту, щоб там були всі обовязкові компоненти, наприклад ім'я і телефон
 const contactShema = Joi.object({
   name: Joi.string().required(),
@@ -11,16 +13,7 @@ const contactShema = Joi.object({
 });
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  try {
-    const allContacts = await contacts.listContacts();
-    res.json(allContacts);
-  } catch (error) {
-    next(error);
-    // передати обробник помилок, який прописаний в app
-    // res.status(500).json({ message: error.message });
-  }
-});
+router.get('/', contactController.listContacts);
 
 router.get('/:contactId', async (req, res, next) => {
   try {
