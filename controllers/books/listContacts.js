@@ -8,5 +8,4 @@ const listContacts = async (req, res, next) => {
     next(error);
   }
 };
-
 module.exports = listContacts;
