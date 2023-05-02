@@ -15,7 +15,7 @@ router.get(
 
 router.post(
   '/',
-  validateBody(schema.contactSchema),
+  validateBody(schema.contactSchemaRequired),
   controllerWrapper(contactController.addContact)
 );
 
@@ -26,7 +26,7 @@ router.delete(
 
 router.put(
   '/:contactId',
-  validateBody(schema.contactSchema),
+  validateBody(schema.contactSchemaOptional),
   controllerWrapper(contactController.updateContact)
 );
 

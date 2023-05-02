@@ -1,9 +1,15 @@
 const Joi = require('joi');
 
-const contactSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
-});
+const contactSchema = {
+  name: Joi.string(),
+  email: Joi.string(),
+  phone: Joi.string(),
+};
 
-module.exports = contactSchema;
+const contactSchemaOptional = Joi.object(contactSchema);
+const contactSchemaRequired = Joi.object(contactSchema).fork(
+  Object.keys(contactSchema),
+  (schema) => schema.required()
+);
+
+module.exports = { contactSchemaOptional, contactSchemaRequired };
