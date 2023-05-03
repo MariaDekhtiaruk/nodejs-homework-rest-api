@@ -39,13 +39,21 @@ async function addContact({ name, email, phone }) {
   return newContact;
 }
 
-async function updateContact(contactId, { name, email, phone }) {
+async function updateContact(contactId, newContactFields) {
   const contacts = await listContacts();
   const jsonId = String(contactId);
   const index = contacts.findIndex((item) => item.id === jsonId);
+
   if (index === -1) return null;
-  contacts[index] = { contactId, name, email, phone };
+
+  const currentContact = contacts[index];
+
+  // Overwrite current contact fields with a newContactFields
+  // Only passed optional newContactFields will be overwritten
+  contacts[index] = { ...currentContact, ...newContactFields };
+
   await updateContacts(contacts);
+
   return contacts[index];
 }
 
