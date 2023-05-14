@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
   if (type !== 'Bearer') {
     throw RequestError(401, 'Token type is not valid');
   }
-
+  // (!user || !)
   if (!token) {
     throw RequestError(401, 'No token is provided');
   }
