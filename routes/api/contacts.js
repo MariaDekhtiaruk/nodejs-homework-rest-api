@@ -3,10 +3,15 @@ const contactController = require('../../controllers/contacts');
 const controllerWrapper = require('../../helpers/controllerWrapper');
 const { validateBody } = require('../../middlewares');
 const schema = require('../../schemas/contacts');
+const auth = require('../../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/', controllerWrapper(contactController.listContacts));
+router.get(
+  '/',
+  controllerWrapper(auth),
+  controllerWrapper(contactController.listContacts)
+);
 
 router.get(
   '/:contactId',
@@ -15,6 +20,7 @@ router.get(
 
 router.post(
   '/',
+  controllerWrapper(auth),
   validateBody(schema.contactSchemaRequired),
   controllerWrapper(contactController.addContact)
 );

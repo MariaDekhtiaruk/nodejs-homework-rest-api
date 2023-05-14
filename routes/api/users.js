@@ -1,7 +1,9 @@
 const express = require('express');
 const controllerWrapper = require('../../helpers/controllerWrapper');
 const controller = require('../../controllers/users');
+const { validateBody } = require('../../middlewares');
 const auth = require('../../middlewares/auth');
+const schema = require('../../schemas/users');
 
 const router = express.Router();
 
@@ -24,6 +26,13 @@ router.get(
   '/current',
   controllerWrapper(auth),
   controllerWrapper(controller.getCurrent)
+);
+
+router.patch(
+  '/updateSubscription',
+  controllerWrapper(auth),
+  validateBody(schema.userUpdateSubscriptionSchema),
+  controllerWrapper(controller.updateSubscription)
 );
 
 module.exports = router;

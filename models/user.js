@@ -1,4 +1,5 @@
 const { Schema, model, Types } = require('mongoose');
+const { SUBSCRIPTION_TYPES } = require('../constants/constants');
 
 const userSchema = new Schema(
   {
@@ -20,7 +21,7 @@ const userSchema = new Schema(
     },
     subscription: {
       type: String,
-      enum: ['starter', 'pro', 'business'],
+      enum: SUBSCRIPTION_TYPES,
       default: 'starter',
     },
     token: String,
