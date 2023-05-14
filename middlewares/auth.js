@@ -11,7 +11,7 @@ const auth = async (req, res, next) => {
   if (type !== 'Bearer') {
     throw RequestError(401, 'Token type is not valid');
   }
-  // (!user || !)
+  // (!user || !user.token || user.token !== token)
   if (!token) {
     throw RequestError(401, 'No token is provided');
   }
@@ -19,12 +19,17 @@ const auth = async (req, res, next) => {
   try {
     const { id } = jwt.verify(token, JWT_SECRET);
     const user = await User.findById(id);
+    if (!user.token) {
+      throw RequestError(401, 'Unauthorized');
+    }
     req.user = user;
   } catch (error) {
     if (
       ['TokenExpiredError', 'JsonWebTokenError'].includes(error.name)
     ) {
       throw RequestError(401, 'JWT token type is not valid');
+    } else {
+      throw RequestError(error.status, error.message);
     }
   }
 
