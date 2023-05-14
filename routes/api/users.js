@@ -20,5 +20,10 @@ router.get(
   controllerWrapper(auth),
   controllerWrapper(controller.getInfo)
 );
+router.get(
+  '/current',
+  controllerWrapper(auth),
+  controllerWrapper(controller.getCurrent)
+);
 
 module.exports = router;

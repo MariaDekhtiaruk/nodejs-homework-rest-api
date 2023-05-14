@@ -22,7 +22,14 @@ const login = async (req, res) => {
   const token = jwt.sign({ id: user._id }, JWT_SECRET, {
     expiresIn: '24h',
   });
-  res.json({ token });
+  const { subscription } = user;
+  res.json({
+    token,
+    user: {
+      email,
+      subscription,
+    },
+  });
 };
 
 module.exports = login;

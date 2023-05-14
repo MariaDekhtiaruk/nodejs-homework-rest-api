@@ -5,13 +5,18 @@ const registration = async (req, res) => {
   const { email, password } = req.body;
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
-  const result = await User.create({
+  const newUser = await User.create({
     email,
     password: hashedPassword,
   });
+
+  const { subscription } = newUser;
+
   return res.status(201).json({
-    id: result._id,
-    email,
+    user: {
+      email,
+      subscription,
+    },
   });
 };
 

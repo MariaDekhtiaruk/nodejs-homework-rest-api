@@ -27,7 +27,6 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log('errorrrrrr!!!!', err);
   if (err.message.includes('E11000 duplicate key error')) {
     res
       .status(409)

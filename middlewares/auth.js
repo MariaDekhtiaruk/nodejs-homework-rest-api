@@ -1,9 +1,10 @@
 const { RequestError } = require('../helpers');
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 const { JWT_SECRET } = process.env;
 
-const auth = (req, res, next) => {
+const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   const [type, token] = authHeader?.split(' ') || '';
 
@@ -16,11 +17,10 @@ const auth = (req, res, next) => {
   }
 
   try {
-    jwt.verify(token, JWT_SECRET);
-
-    console.log('jwt.verify');
+    const { id } = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(id);
+    req.user = user;
   } catch (error) {
-    console.log('jwt.verify error', error, error.name);
     if (
       ['TokenExpiredError', 'JsonWebTokenError'].includes(error.name)
     ) {
@@ -28,7 +28,6 @@ const auth = (req, res, next) => {
     }
   }
 
-  console.log('NEXT!!!!');
   next();
 };
 
