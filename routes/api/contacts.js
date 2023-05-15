@@ -15,31 +15,41 @@ router.get(
 
 router.get(
   '/:contactId',
-  controllerWrapper(contactController.getContactById)
+  controllerWrapper(auth),
+  controllerWrapper(contactController.getContactById),
+  controllerWrapper((req, res) => {
+    res.json(req.selectedContact);
+  })
 );
 
 router.post(
   '/',
-  controllerWrapper(auth),
   validateBody(schema.contactSchemaRequired),
+  controllerWrapper(auth),
   controllerWrapper(contactController.addContact)
 );
 
 router.delete(
   '/:contactId',
+  controllerWrapper(auth),
+  controllerWrapper(contactController.getContactById),
   controllerWrapper(contactController.removeContact)
 );
 
 router.put(
   '/:contactId',
   validateBody(schema.contactSchemaOptional),
+  controllerWrapper(auth),
+  controllerWrapper(contactController.getContactById),
   controllerWrapper(contactController.updateContact)
 );
 
 router.patch(
   '/:contactId/favorite',
   validateBody(schema.contactSchemaFavorites),
-  controllerWrapper(contactController.updateStatusContact)
+  controllerWrapper(auth),
+  controllerWrapper(contactController.getContactById),
+  controllerWrapper(contactController.updateContact)
 );
 
 module.exports = router;
