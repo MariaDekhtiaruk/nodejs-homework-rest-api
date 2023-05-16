@@ -8,9 +8,9 @@ const schema = require('../../schemas/users');
 const router = express.Router();
 
 router.post(
-  '/',
+  '/addContactToUser',
   controllerWrapper(auth),
-  controllerWrapper(controller.addContact)
+  controllerWrapper(controller.addContactToUser)
 );
 router.get(
   '/contacts',
