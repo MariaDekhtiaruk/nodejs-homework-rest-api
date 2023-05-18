@@ -53,8 +53,9 @@ router.patch(
 );
 
 router.patch(
-  '/:contactId/image',
-  upload.single('image'),
+  '/:contactId/images',
+  controllerWrapper(auth),
+  upload.single('images'),
   controllerWrapper(contactController.uploadImage)
 );
 

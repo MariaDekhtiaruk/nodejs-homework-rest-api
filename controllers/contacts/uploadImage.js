@@ -12,7 +12,7 @@ const uploadImage = async (req, res) => {
   const tmpPath = path.resolve(__dirname, '../../tmp', filename);
   const publicPath = path.resolve(
     __dirname,
-    '../../public/avatars',
+    '../../public/images',
     filename
   );
 
@@ -25,7 +25,7 @@ const uploadImage = async (req, res) => {
   const contactId = req.params.contactId;
   const contact = await Contact.findByIdAndUpdate(
     contactId,
-    { image: `avatars/${filename}` },
+    { image: `images/${filename}` },
     { new: true }
   );
 

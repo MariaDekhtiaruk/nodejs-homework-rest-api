@@ -40,7 +40,7 @@ router.patch(
   controllerWrapper(auth),
   upload.single('avatar'),
   validateBody(schema.userUpdateSubscriptionSchema),
-  controllerWrapper(controller.updateSubscription)
+  controllerWrapper(controller.updateAvatar)
 );
 
 module.exports = router;
