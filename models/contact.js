@@ -22,6 +22,10 @@ const contactSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
+    image: {
+      type: String,
+      default: '',
+    },
   },
   { versionKey: false, timestamps: true }
 );

@@ -1,7 +1,7 @@
 const express = require('express');
 const contactController = require('../../controllers/contacts');
 const controllerWrapper = require('../../helpers/controllerWrapper');
-const { validateBody } = require('../../middlewares');
+const { validateBody, upload } = require('../../middlewares');
 const schema = require('../../schemas/contacts');
 const auth = require('../../middlewares/auth');
 
@@ -50,6 +50,12 @@ router.patch(
   controllerWrapper(auth),
   controllerWrapper(contactController.getContactById),
   controllerWrapper(contactController.updateContact)
+);
+
+router.patch(
+  '/:contactId/image',
+  upload.single('image'),
+  controllerWrapper(contactController.uploadImage)
 );
 
 module.exports = router;

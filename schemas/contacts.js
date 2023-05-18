@@ -4,6 +4,7 @@ const contactSchema = {
   name: Joi.string(),
   email: Joi.string(),
   phone: Joi.string(),
+  image: Joi.string(),
 };
 
 const contactSchemaOptionalFields = {
