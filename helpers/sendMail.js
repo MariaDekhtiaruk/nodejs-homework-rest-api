@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const { EMAIL_USER, EMAIL_PASS } = process.env;
-const sendMail = async ({ to, from, subject, text, html }) => {
+const sendMail = async ({ to, subject, text, html }) => {
   const from = 'Maria.dekh@gmail.com';
   const email = {
     to,

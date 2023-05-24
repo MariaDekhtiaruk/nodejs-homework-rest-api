@@ -32,6 +32,10 @@ const userSchema = new Schema(
       type: String,
       require: true,
     },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );
