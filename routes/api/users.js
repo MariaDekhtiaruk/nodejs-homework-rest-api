@@ -4,6 +4,7 @@ const controller = require('../../controllers/users');
 const { validateBody, upload } = require('../../middlewares');
 const auth = require('../../middlewares/auth');
 const schema = require('../../schemas/users');
+const emailSchema = require('../../schemas/emailSchema');
 
 const router = express.Router();
 
@@ -43,4 +44,14 @@ router.patch(
   controllerWrapper(controller.updateAvatar)
 );
 
+router.get(
+  '/verify/:verifiedToken',
+  controllerWrapper(controller.verifyEmail)
+);
+
+router.post(
+  '/verify',
+  validateBody(emailSchema),
+  controllerWrapper(controller.resendVerifyEmail)
+);
 module.exports = router;

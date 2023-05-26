@@ -4,6 +4,8 @@ const addContactToUser = require('./addContactToUser');
 const getCurrent = require('./current');
 const updateSubscription = require('./updateSubscription');
 const updateAvatar = require('./updateAvatar');
+const verifyEmail = require('./verifyEmail');
+const resendVerifyEmail = require('./resendVerifyEmail');
 module.exports = {
   getInfo,
   getContacts,
@@ -11,4 +13,6 @@ module.exports = {
   getCurrent,
   updateSubscription,
   updateAvatar,
+  verifyEmail,
+  resendVerifyEmail,
 };
